@@ -1,7 +1,6 @@
 #!/bin/sh  
 
-# */5 * * * *
-# 0 5 * * *
+# 0 5 * * * sh /usr/local/bin/pgbackup.sh
 
 PGUSER=postgres
 PGBIN=/data/service/pgsql_10.0/bin
