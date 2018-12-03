@@ -3,8 +3,8 @@
 # 0 5 * * * sh /usr/local/bin/pgbackup.sh
 
 PGUSER=postgres
-PGBIN=/data/service/pgsql_10.0/bin
-BACKUPDIR=/data/pg10/backups
+PGBIN=/data/service/postgres/bin
+BACKUPDIR=/data/service/postgres/backups
 
 BACKUPDATE=`date +%Y%m%d%H%M%S`
 BACKUPSUBDIR=$BACKUPDIR/$BACKUPDATE
