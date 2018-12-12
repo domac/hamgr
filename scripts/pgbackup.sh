@@ -20,7 +20,7 @@ mkdir -p $BACKUPSUBDIR
 chown -R postgres:postgres $BACKUPDIR
 chown -R postgres:postgres $BACKUPSUBDIR
 
-su - $PGUSER -c "$PGBIN/pg_basebackup -Ft -Pv -Xf -z -Z5  -U postgres -p 25432 -D $BACKUPSUBDIR"
+su - $PGUSER -c "$PGBIN/pg_basebackup --checkpoint=fast -Ft -Pv -Xf -z -Z5  -U postgres -p 25432 -D $BACKUPSUBDIR"
 su - $PGUSER -c "echo 'success backup on $BACKUPDATE' >> $BACKUPLOG"
 
 # 清理历史备份,只保留10天
