@@ -1,10 +1,14 @@
 #!/bin/sh  
 
 # 0 5 * * * sh /usr/local/bin/pgbackup.sh
+# 0 5 * * * . /etc/profile.d/pg.sh; /data/services/postgres/pg_backup.sh >> /data/services/postgres/pg_backup.log 2>&1
 
 PGUSER=postgres
-PGBIN=/data/service/postgres/bin
-BACKUPDIR=/data/service/postgres/backups
+PGHOME=/data/services/postgres
+PGBIN=/data/services/postgres/bin
+BACKUPDIR=/data/services/postgres/backups
+
+#su - $PGUSER -c "export LD_LIBRARY_PATH=$PGHOME/lib:/lib64:/usr/lib64:/usr/local/lib64:/lib:/usr/lib:/usr/local/lib"
 
 BACKUPDATE=`date +%Y%m%d%H%M%S`
 BACKUPSUBDIR=$BACKUPDIR/$BACKUPDATE
