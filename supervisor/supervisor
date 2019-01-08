@@ -1,0 +1,56 @@
+#! /bin/sh
+
+# chkconfig: 2345 80 90
+# description: auto_run
+
+prefix=/usr
+SVCTL="$prefix/bin/supervisorctl"
+DAEMON="$prefix/bin/supervisord"
+CONFIG="/etc/supervisord.conf"
+
+# domac 2019
+# cmd: chkconfig -add supervisor
+# cmd: chkconfig supervisor on
+
+test -x $DAEMON ||
+{
+	echo "$DAEMON not found"
+	if [ "$1" = "stop" ]
+	then exit 0
+	else exit 5
+	fi
+}
+
+case $1 in
+  start)
+	echo -n "Starting Supervisor: "
+	$DAEMON -c $CONFIG
+	echo "ok"
+	;;
+  stop)
+	echo -n "Stopping Supervisor: "
+	$SVCTL shutdown
+	echo "ok"
+	;;
+  restart)
+	echo -n "Restarting Supervisor: "
+	$SVCTL shutdown
+	$DAEMON -c $CONFIG
+	echo "ok"
+	;;
+  reload)
+	echo -n "Reload Supervisor: "
+	$SVCTL reload
+	echo "ok"
+	;;
+  status)
+	$SVCTL status
+	;;
+  *)
+	# Print help
+	echo "Usage: $0 {start|stop|restart|reload|status}" 1>&2
+	exit 1
+	;;
+esac
+
+exit 0
