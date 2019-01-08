@@ -1,0 +1,493 @@
+{
+
+		"hardlinks":
+		[
+			{"from":"..\\data\\vul", "to":"www\\public\\store\\vul"},
+			{"from":"..\\data\\tav", "to":"www\\public\\store\\tav"},
+			{"from":"..\\data\\license", "to":"www\\storage\\app\\license"},
+			{"from":"..\\data\\vul_update_data", "to":"service\\vul_update\\data"},
+			{"from":"..\\data\\common\\data", "to":"www\\storage\\app\\offline_files"},
+			{"from":"..\\data\\data_update_multistage", "to":"www\\public\\store\\data_update"},
+			{"from":"..\\data\\offline_files_multistage", "to":"www\\public\\store\\offline_files"},
+			{"from":"..\\data\\LiveUpdate_multistage", "to":"www\\public\\store\\LiveUpdate"},
+			{"from":"..\\data\\softwares", "to":"www\\public\\store\\softwares"}
+		],
+
+		"templates":
+		[
+			{"from":"template\\.env", "to":"www\\.env"},
+			{"from":"template\\postgresql.conf", "to":"..\\data\\db\\postgresql.conf"},
+			{"from":"template\\nginx.conf", "to":"tools\\nginx\\conf\\nginx.conf"},
+			{"from":"template\\route.conf", "to":"service\\route.conf"},
+			{"from":"template\\service.conf", "to":"service\\service.conf"},
+			{"from":"template\\redis.windows-service.conf", "to":"tools\\Redis\\redis.windows-service.conf"},
+			{"from":"template\\iOA_server_config.ini", "to":"ioa\\iOA_server_config.ini"}
+		],
+
+		"DaemonTimer": 60,
+
+		"processes":
+		[
+			{
+				"start":"tools\\Python27\\python.exe",
+				"start_param":"\"$(install_dir)\\Script\\Initdb.py\" -i",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 1,
+				"stdout" : "..\\logs\\loginitDb.txt",
+				"stderr" : ""
+			},
+
+
+			{
+				"start":"tools\\Python27\\python.exe",
+				"start_param":"\"$(install_dir)\\Script\\Template.py\"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 1,
+				"stdout" : "..\\logs\\logTempalte.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\PostgreSQL\\bin\\postgres.exe",
+				"start_param":"-D \"$(install_dir)\\..\\data\\db\"",
+				"stop" : "tools\\PostgreSQL\\bin\\pg_ctl.exe",
+				"stop_param" : "stop -D \"$(install_dir)\\..\\data\\db\" -m fast",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "..\\logs\\logcreatepostgres.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\Python27\\python.exe",
+				"start_param":"\"$(install_dir)\\Script\\wait_db_ready.py",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 1,
+				"CheckRes":1,
+				"stdout" : "..\\logs\\wait_db.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\Python27\\python.exe",
+				"start_param":"\"$(install_dir)\\db\\delegate.py\"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 1,
+                "CheckRes":1,
+				"stdout" : "..\\logs\\dbctrl2.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\Python27\\python.exe",
+				"start_param":"\"$(install_dir)\\Script\\changeSystemConfig.py\"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 1,
+				"stdout" : "..\\logs\\changeSystemConfig.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\php\\php-cgi.exe",
+				"start_param":"-b 127.0.0.1:9100",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 3,
+				"stdout" : "..\\logs\\logphp.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\php\\php-cgi.exe",
+				"start_param":"-b 127.0.0.1:9101",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 3,
+				"stdout" : "..\\logs\\logphp.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\php\\php-cgi.exe",
+				"start_param":"-b 127.0.0.1:9102",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 3,
+				"stdout" : "..\\logs\\logphp.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\php\\php-cgi.exe",
+				"start_param":"-b 127.0.0.1:9103",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 3,
+				"stdout" : "..\\logs\\logphp.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\php\\php-cgi.exe",
+				"start_param":"-b 127.0.0.1:9104",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 3,
+				"stdout" : "..\\logs\\logphp.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\php\\php-cgi.exe",
+				"start_param":"-b 127.0.0.1:9105",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 3,
+				"stdout" : "..\\logs\\logphp.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\php\\php-cgi.exe",
+				"start_param":"-b 127.0.0.1:9106",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 3,
+				"stdout" : "..\\logs\\logphp.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\php\\php-cgi.exe",
+				"start_param":"-b 127.0.0.1:9107",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 3,
+				"stdout" : "..\\logs\\logphp.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\php\\php-cgi.exe",
+				"start_param":"-b 127.0.0.1:9108",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 3,
+				"stdout" : "..\\logs\\logphp.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\php\\php-cgi.exe",
+				"start_param":"-b 127.0.0.1:9109",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 3,
+				"stdout" : "..\\logs\\logphp.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\nginx\\nginx.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "tools\\nginx\\",
+				"mode" : 3,
+				"stdout" : "..\\logs\\lognginx.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\Redis\\redis-server.exe",
+				"start_param":"\"$(install_dir)\\tools\\Redis\\redis.windows-service.conf\"",
+				"stop" : "tools\\Python27\\python.exe",
+				"stop_param" : "\"$(install_dir)\\Script\\shutdown_redis.py\"",
+				"dir" : "",
+				"mode" : 3,
+				"stdout" : "..\\logs\\logredis.txt",
+				"stderr" : ""
+			},
+			{
+				"start":"service\\queryServer\\bin\\queryServer.exe",
+				"start_param":"-checkRedisLoadOk",
+				"stop" : "",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 1,
+				"stdout" : "",
+				"stderr" : ""
+			},
+            {
+			    "start":"service\\import_datapkg\\bin\\import_datapkg.exe",
+			    "start_param":"",
+			    "stop" : "force",
+			    "stop_param" : "",
+			    "dir" : "",
+			    "mode" : 2,
+			    "stdout" : "",
+			    "stderr" : ""
+			},
+			{
+				"start":"tools\\Python27\\python.exe",
+				"start_param":"\"$(install_dir)\\Script\\SetupPkgImport.py\" \"$(install_dir)\\DataInSetup\" \"$(install_dir)\\..\\data\\common\\data\"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 1,
+				"stdout" : "",
+				"stderr" : ""
+			},
+
+			{
+				"start":"tools\\beanstalkd\\beanstalkd.exe",
+				"start_param":"-l 127.0.0.1 -p 11300 -b \"$(install_dir)\\..\\Data\" -F",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "..\\logs\\logbeanstalkd.txt",
+				"stderr" : ""
+			},
+
+			{
+				"start":"service\\task_query\\bin\\task_query.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+			{
+				"start":"service\\task_broker\\bin\\task_broker.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+			{
+				"start":"service\\config_query\\bin\\config_query.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+
+			{
+				"start":"service\\device_info\\bin\\device_info.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+
+			{
+				"start":"service\\device_profile\\bin\\device_profile.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+
+			{
+				"start":"service\\devices\\bin\\devices.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+
+			{
+				"start":"service\\groups\\bin\\groups.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+
+			{
+				"start":"service\\data_report\\bin\\data_report.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+			{
+				"start":"service\\data_stat\\bin\\data_stat.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+			{
+				"start":"service\\trojanProxy\\bin\\trojanProxy.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+			{
+				"start":"service\\queryServer\\bin\\queryServer.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+			{
+				"start":"service\\server_configs\\bin\\server_configs.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+			{
+				"start":"service\\TavUpdate\\bin\\TavUpdate.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+			{
+				"start":"service\\data_update\\bin\\data_update.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+			{
+				"start":"service\\conn_sc\\bin\\conn_sc.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+
+			{
+				"start":"service\\vul_update\\bin\\vul_update.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+
+			{
+				"start":"service\\vul_ProxySrv\\bin\\vul_ProxySrv.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+
+            {
+				"start":"service\\SrvMgr\\bin\\SrvMgr.exe",		
+				"start_param":"",		
+				"stop" : "force",			
+				"stop_param" : "",		
+				"dir" : "",					
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+            
+			{
+				"start":"service\\conn_lc\\bin\\conn_lc.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+			{
+				"start":"service\\yd_live_update\\bin\\yd_live_update.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			},
+			{
+				"start":"service\\cron\\bin\\cron.exe",
+				"start_param":"",
+				"stop" : "force",
+				"stop_param" : "",
+				"dir" : "",
+				"mode" : 2,
+				"stdout" : "",
+				"stderr" : ""
+			}
+		]
+}
